@@ -26,7 +26,7 @@ Installation instructions for application:
 run npm i in your CLI
 
 ## Usage
-Click [here](https://just-another-text-editor-wws5.onrender.com/) to access deployed application.
+Click [here](https://one9-not-just-another-text-editor-10.onrender.com) to access deployed application.
 
 To make use of the application, navigate to the link above to view the deployed application.  From there you can work within the text editor and anything you write will be saved automatically.  If you would prefer to work offline, the application can be installed and used locally.
 
