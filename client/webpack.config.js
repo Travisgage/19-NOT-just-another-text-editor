@@ -20,13 +20,13 @@ module.exports = () => {
         template: './index.html',
       }),
       new MiniCssExtractPlugin(),
-      // Workbox plugins for service worker, manifest file.
-      // Inject service worker
+      // Workbox plugins for a service worker and manifest file.
+      // Injects a custom service worker
       new InjectManifest({
         swSrc: './src-sw.js',
         swDest: 'src-sw.js',
       }),
-      // Create manifest.json
+      // Creates a manifest.json file
       new WebpackPwaManifest({
         filename: 'manifest.json',
         inject: true,
@@ -52,7 +52,8 @@ module.exports = () => {
     module: {
       rules: [
         {
-          // CSS/babel loader 
+          // CSS loaders and babel loader to load CSS and babel to translate 
+          // all versions of JavaScript.
           test: /\.m?js$/,
           exclude: /(node_modules|bower_components)/,
           use: {
