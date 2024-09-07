@@ -1,8 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
+
 
 module.exports = () => {
   return {
@@ -18,44 +18,42 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
+        title: 'JATE'
       }),
-      new MiniCssExtractPlugin(),
-      // Workbox plugins for a service worker and manifest file.
-      // Injects a custom service worker
       new InjectManifest({
         swSrc: './src-sw.js',
         swDest: 'src-sw.js',
       }),
-      // Creates a manifest.json file
       new WebpackPwaManifest({
         filename: 'manifest.json',
-        inject: true,
         fingerprints: false,
+        inject: true,
         name: 'Just Another Text Editor',
-        short_name: 'J.A.T.E',
-        description: 'Just another text editor',
+        short_name: 'JATE',
+        description: 'Takes notes with JavaScript syntax highlighting!',
         background_color: '#225ca3',
         theme_color: '#225ca3',
-        start_url: '/',
-        publicPath: '/',
-        display: 'standalone',
+        start_url: './',
+        publicPath: './',
         icons: [
           {
             src: path.resolve('src/images/logo.png'),
             sizes: [96, 128, 192, 256, 384, 512],
             destination: path.join('assets', 'icons'),
-          }
-        ]
-      })
+          },
+        ],
+      }),
     ],
 
     module: {
       rules: [
         {
-          // CSS loaders and babel loader to load CSS and babel to translate 
-          // all versions of JavaScript.
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
           test: /\.m?js$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -63,14 +61,6 @@ module.exports = () => {
               plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
             },
           },
-        },
-        {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: 'asset/resource',
-        },
-        {
-          test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
       ],
     },
